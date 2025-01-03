@@ -8,25 +8,20 @@ dotenv.config();
 
 const app = express();
 
-// Update CORS configuration to handle multiple origins
-const allowedOrigins = [
-    process.env.CLIENT_URL,
-    'http://localhost:5173',
-    'https://your-frontend-domain.vercel.app'
-].filter(Boolean);
-
-app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-}));
-
+// Simplified CORS setup
+app.use(cors());
 app.use(express.json());
+
+// Add this near the top after creating 'app'
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      res.redirect(`https://${req.headers.host}${req.url}`);
+    } else {
+      next();
+    }
+  });
+}
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -49,10 +44,9 @@ app.use((err, req, res, next) => {
 const startServer = async () => {
   try {
     await connectDB();
-    // Only start listening if not in Vercel environment
     if (process.env.NODE_ENV !== 'production') {
-        const PORT = process.env.PORT || 4000;
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+      const PORT = process.env.PORT || 4000;
+      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     }
   } catch (error) {
     console.error('Failed to start server:', error);
@@ -62,5 +56,5 @@ const startServer = async () => {
 
 startServer();
 
-// Add this for Vercel serverless deployment
+// Make sure this is at the end of the file
 export default app;
