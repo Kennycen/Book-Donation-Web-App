@@ -8,8 +8,18 @@ dotenv.config();
 
 const app = express();
 
-// Simplified CORS setup
-app.use(cors());
+// CORS setup with multiple origins
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'https://your-frontend-vercel-url.vercel.app'
+].filter(Boolean);
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
+}));
 app.use(express.json());
 
 // Add this near the top after creating 'app'
@@ -25,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Add a root route handler
 app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Welcome to the Book Donation API' });
+  res.status(200).json({ message: 'API Working' });
 });
 
 // Health check endpoint
