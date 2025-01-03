@@ -10,13 +10,21 @@ const app = express();
 
 // CORS setup with multiple origins
 const allowedOrigins = [
-  process.env.CLIENT_URL,
+  'https://book-donation-frontend-3mont270n.vercel.app', // Your frontend URL
   'http://localhost:5173',
-  'https://your-frontend-vercel-url.vercel.app'
+  process.env.CLIENT_URL
 ].filter(Boolean);
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('CORS not allowed'));
+    }
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
 }));
