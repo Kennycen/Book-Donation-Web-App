@@ -23,6 +23,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Add a root route handler
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the Book Donation API' });
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
