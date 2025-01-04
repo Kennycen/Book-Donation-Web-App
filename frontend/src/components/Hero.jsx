@@ -4,7 +4,7 @@ import { assets } from '../assets/assets'
 
 const Hero = () => {
   return (
-    <div className="bg-white">
+    <div className="relative z-0 bg-white">
       <div className="flex flex-col-reverse max-w-7xl mx-auto py-10 px-4 sm:py-24 sm:px-6 lg:px-8 lg:flex-row">
           <div className="space-y-8 lg:mt-28">
             <h1 className="font-prata text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">

@@ -22,7 +22,7 @@ const Organizations = () => {
           </div>
           <div className='w-full max-w-[250px] flex justify-center'>
             <img 
-              className='h-16 sm:h-20 md:h-28 object-contain hover:scale-105 transition-transform duration-200' 
+              className='h-16 mr-5 sm:h-20 md:h-28 object-contain hover:scale-105 transition-transform duration-200' 
               src={assets.doe} 
               alt="DOE Logo" 
             />

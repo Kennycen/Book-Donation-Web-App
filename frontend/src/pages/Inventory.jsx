@@ -64,6 +64,38 @@ const Inventory = () => {
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="font-prata text-3xl font-extrabold text-center mb-8">Book Inventory</h1>
+          {/* Instructions Card */}
+          <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">How it Works?</h2>
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <span className="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">1</span>
+                <p className="ml-3 text-gray-600">
+                  Search for your book using the ISBN number (click "Where to find ISBN?" if you need help locating it)
+                </p>
+              </div>
+              
+              <div className="flex items-start">
+                <span className="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">2</span>
+                <p className="ml-3 text-gray-600">
+                  When you desired book is found. Click on "View Details"
+                </p>
+              </div>
+              
+              <div className="flex items-start">
+                <span className="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">3</span>
+                <p className="ml-3 text-gray-600">
+                  It will display the book information and User Instagram username for contact:
+                  <ul className="mt-2 ml-4 list-disc space-y-1">
+                    <li><span className="font-medium">Title:</span> Book title and Relevant information</li>
+                    <li><span className="font-medium">Instagram Username:</span> Contact user to receive book</li>
+                    <li><span className="font-medium">Mark as Donated:</span> Button to remove book when is received</li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+          </div>
+
           <DatabaseSearchBar onSearchResults={handleSearchResults} />
           
           {isLoading ? (

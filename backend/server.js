@@ -8,26 +8,8 @@ dotenv.config();
 
 const app = express();
 
-// CORS setup with multiple origins
-const allowedOrigins = [
-  'https://book-donation-frontend-3mont270n.vercel.app', // Your frontend URL
-  'http://localhost:5173',
-  process.env.CLIENT_URL
-].filter(Boolean);
-
-app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      return callback(new Error('CORS not allowed'));
-    }
-    return callback(null, true);
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
-}));
+// CORS setup to allow all origins
+app.use(cors());
 app.use(express.json());
 
 // Add this near the top after creating 'app'
