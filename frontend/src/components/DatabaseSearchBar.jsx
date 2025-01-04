@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { assets } from '../assets/assets'; // Ensure you have the correct path to your assets
 
 const DatabaseSearchBar = ({ onSearchResults }) => {
   
@@ -7,6 +8,7 @@ const DatabaseSearchBar = ({ onSearchResults }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showIsbnHelp, setShowIsbnHelp] = useState(false); // State for help text visibility
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -39,25 +41,38 @@ const DatabaseSearchBar = ({ onSearchResults }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 mb-8 px-5">
-      <form onSubmit={handleSearch} className="space-y-2">
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="flex-grow">
+    <div className="max-w-2xl mx-auto mt-8 mb-8 px-4 py-4">
+      <form onSubmit={handleSearch} className="space-y-4">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <label htmlFor="isbn-search" className="text-sm font-medium text-gray-700">
+              Enter ISBN:
+            </label>
+            <button
+              type="button"
+              className="text-sm text-blue-600 hover:text-blue-800"
+              onClick={() => setShowIsbnHelp(!showIsbnHelp)} // Toggle help text visibility
+            >
+              Where to find ISBN?
+            </button>
+          </div>
+          <div className="flex gap-2">
             <input
+              id="isbn-search"
               type="text"
               placeholder="Enter ISBN to search our collection..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <button
+              type="submit"
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Searching...' : 'Search'}
+            </button>
           </div>
-          <button
-            type="submit"
-            className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-blue-400"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Searching...' : 'Search'}
-          </button>
         </div>
       </form>
       {error && (
@@ -73,8 +88,24 @@ const DatabaseSearchBar = ({ onSearchResults }) => {
           )}
         </div>
       )}
+
+      {/* Help Text for ISBN */}
+      {showIsbnHelp && (
+        <div className="mt-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="flex flex-col items-center space-y-3">
+          <img 
+            src={assets.isbn} 
+            alt="ISBN location on book" 
+            className="max-w-full h-auto rounded-lg shadow-md"
+          />
+          <p className="text-sm text-gray-600 text-center">
+            The ISBN (International Standard Book Number) can be found on the back cover of the book or on the copyright page. It's typically a 10 or 13-digit number.
+          </p>
+        </div>
+      </div>
+      )}
     </div>
   );
 };
 
-export default DatabaseSearchBar; 
+export default DatabaseSearchBar;
