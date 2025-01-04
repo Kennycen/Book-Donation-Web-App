@@ -8,8 +8,16 @@ dotenv.config();
 
 const app = express();
 
-// CORS setup to allow all origins
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+  origin: (origin, callback) => {
+    callback(null, origin); // Allow all origins
+  },
+  credentials: true, // Allow credentials
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Add this near the top after creating 'app'
@@ -61,5 +69,4 @@ const startServer = async () => {
 
 startServer();
 
-// Make sure this is at the end of the file
 export default app;
