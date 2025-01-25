@@ -1,4 +1,4 @@
-import HeroImage from './Hero_Image.jpg'
+import HeroImage from './Hero_Image.png'
 import isbnImage from './isbn.jpeg'
 import CunyLogo from './CUNY-Logo.jpg'
 import SunyLogo from './SUNY-Logo.jpg'

@@ -19,7 +19,7 @@ const Hero = () => {
               initial={{opacity: 0}}
               whileInView={{opacity: 1}}
               transition={{duration: 0.6, delay: 0.7}}
-              className="text-xl text-gray-500 max-w-3xl">
+              className="text-sm md:text-lg text-gray-500 max-w-3xl">
                 Donate your books and discover new stories. Join our community of book lovers, where every book finds a new home and every story inspires a new journey. Together, we can make a difference, one page, one story, and one reader at a time.
             </motion.p>
             <div className="flex space-x-4">
@@ -28,7 +28,7 @@ const Hero = () => {
                 whileInView={{y: 0, opacity: 1}}
                 transition={{duration: 0.6, delay: 1}}
                 to="/donate"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 hover:drop-shadow-xl"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base cursor-pointer font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 hover:drop-shadow-xl"
               >
                 Donate Now
               </motion.Link>
@@ -36,7 +36,7 @@ const Hero = () => {
                 initial={{y: 30, opacity: 0}}
                 whileInView={{y: 0, opacity: 1}}
                 transition={{duration: 0.6, delay: 1.2}}
-                to="/inventory" className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 hover:drop-shadow-xl">
+                to="/inventory" className="inline-flex items-center px-6 py-3 border border-gray-300 cursor-pointer text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 hover:drop-shadow-xl">
                   Browse Books
               </motion.Link>
             </div>

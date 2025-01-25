@@ -38,7 +38,7 @@ const About = () => {
             initial={{opacity: 0}}
             whileInView={{opacity: 1}}
             transition={{duration: 0.6, delay: 0.7}}
-            className="text-lg text-gray-600 leading-relaxed">
+            className="text-sm md:text-[1.1rem] text-gray-600 leading-relaxed">
               This web app was created to connect students through book donations and sharing. Its purpose is to provide a convenient platform where students can donate books they no longer need and find books to support their studies. By fostering a culture of giving and reusing, reduces waste, and builds a stronger community.
           </motion.p>
           <motion.Link 
@@ -47,7 +47,7 @@ const About = () => {
             transition={{duration: 0.6, delay: 1}}
             to="/donate"
             className="inline-flex items-center px-6 py-3 border border-transparent text-base 
-                     font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 hover:drop-shadow-xl
+                     font-medium cursor-pointer rounded-md text-white bg-blue-600 hover:bg-blue-700 hover:drop-shadow-xl
                      transition-colors duration-200 w-fit"
           >
             Donate Now

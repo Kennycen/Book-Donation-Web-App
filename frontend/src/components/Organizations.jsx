@@ -13,7 +13,7 @@ const Organizations = () => {
           transition={{duration: 0.5, delay: 0.5}}
           className='w-full max-w-[250px] flex justify-center'>
             <img 
-              className='h-20 sm:h-24 md:h-32 object-contain hover:scale-105 transition-transform duration-200' 
+              className='h-20 sm:h-24 md:h-32 object-contain hover:scale-110 transition-transform duration-500' 
               src={assets.cuny} 
               alt="CUNY Logo" 
             />
@@ -24,7 +24,7 @@ const Organizations = () => {
           transition={{duration: 0.5, delay: 0.7}}
           className='w-full max-w-[250px] flex justify-center'>
             <img 
-              className='h-20 sm:h-24 md:h-32 object-contain hover:scale-105 transition-transform duration-200' 
+              className='h-20 sm:h-24 md:h-32 object-contain hover:scale-110 transition-transform duration-500' 
               src={assets.suny} 
               alt="SUNY Logo" 
             />
@@ -35,7 +35,7 @@ const Organizations = () => {
           transition={{duration: 0.5, delay: 0.8}}
           className='w-full max-w-[250px] flex justify-center'>
             <img 
-              className='h-16 mr-5 sm:h-20 md:h-28 object-contain hover:scale-105 transition-transform duration-200' 
+              className='h-16 mr-5 sm:h-20 md:h-28 object-contain hover:scale-110 transition-transform duration-500' 
               src={assets.doe} 
               alt="DOE Logo" 
             />
