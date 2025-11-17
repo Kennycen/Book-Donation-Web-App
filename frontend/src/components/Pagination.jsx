@@ -1,5 +1,3 @@
-import React from "react";
-
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const generatePageNumbers = () => {
     const pages = [];
@@ -24,7 +22,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <div className="flex justify-center items-center space-x-2 mt-8">
       <button
-        className="px-3 py-2 rounded-md border border-gray-300 hover:bg-gray-50"
+        className="px-3 py-2 rounded-md border border-gray-300 hover:bg-gray-200 cursor-pointer"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
@@ -45,7 +43,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         </button>
       ))}
       <button
-        className="px-3 py-2 rounded-md border border-gray-300 hover:bg-gray-50"
+        className="px-3 py-2 rounded-md border border-gray-300 hover:bg-gray-200 cursor-pointer"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >

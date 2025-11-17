@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
-import { useAppContext } from '../context/AppContext';
-import { assets } from '../assets/assets'; // Ensure you have the correct path to your assets
+import { useState } from "react";
+import { assets } from "../assets/assets";
+import { bookService } from "../api/books";
 
 const DatabaseSearchBar = ({ onSearchResults }) => {
-  
-  const { backendUrl } = useAppContext();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [error, setError] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showIsbnHelp, setShowIsbnHelp] = useState(false); // State for help text visibility
+  const [showIsbnHelp, setShowIsbnHelp] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) {
-      setError('Please enter an ISBN.');
+      setError("Please enter an ISBN.");
       return;
     }
 
-    setError('');
+    setError("");
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${backendUrl}/api/inventory/search/${searchQuery}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        onSearchResults(data);
-        setError('');
-      } else {
-        setError('Sorry, we don\'t have this book in our collection yet. Would you like to donate it?');
-        onSearchResults([]);
-      }
+      const data = await bookService.searchByISBN(searchQuery);
+      onSearchResults(data);
+      setError("");
     } catch (err) {
-      console.error('Search error:', err);
-      setError('Error searching for book. Please try again.');
+      console.error("Search error:", err);
+      if (err.response?.status === 404) {
+        setError(
+          "Sorry, we don't have this book in our collection yet. Would you like to donate it?"
+        );
+      } else {
+        setError("Error searching for book. Please try again.");
+      }
       onSearchResults([]);
     } finally {
       setIsLoading(false);
@@ -45,13 +42,16 @@ const DatabaseSearchBar = ({ onSearchResults }) => {
       <form onSubmit={handleSearch} className="space-y-4">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label htmlFor="isbn-search" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="isbn-search"
+              className="text-sm font-medium text-gray-700"
+            >
               Enter ISBN:
             </label>
             <button
               type="button"
               className="text-sm text-blue-600 hover:text-blue-800"
-              onClick={() => setShowIsbnHelp(!showIsbnHelp)} // Toggle help text visibility
+              onClick={() => setShowIsbnHelp(!showIsbnHelp)}
             >
               Where to find ISBN?
             </button>
@@ -70,7 +70,7 @@ const DatabaseSearchBar = ({ onSearchResults }) => {
               className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
               disabled={isLoading}
             >
-              {isLoading ? 'Searching...' : 'Search'}
+              {isLoading ? "Searching..." : "Search"}
             </button>
           </div>
         </div>
@@ -79,8 +79,8 @@ const DatabaseSearchBar = ({ onSearchResults }) => {
         <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
           <p className="text-red-600">{error}</p>
           {error.includes("don't have this book") && (
-            <a 
-              href="/donate" 
+            <a
+              href="/donate"
               className="mt-2 inline-block text-blue-600 hover:text-blue-800"
             >
               Click here to donate this book →
@@ -92,17 +92,19 @@ const DatabaseSearchBar = ({ onSearchResults }) => {
       {/* Help Text for ISBN */}
       {showIsbnHelp && (
         <div className="mt-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <div className="flex flex-col items-center space-y-3">
-          <img 
-            src={assets.isbn} 
-            alt="ISBN location on book" 
-            className="max-w-full h-auto rounded-lg shadow-md"
-          />
-          <p className="text-sm text-gray-600 text-center">
-            The ISBN (International Standard Book Number) can be found on the back cover of the book or on the copyright page. It's typically a 10 or 13-digit number.
-          </p>
+          <div className="flex flex-col items-center space-y-3">
+            <img
+              src={assets.isbn}
+              alt="ISBN location on book"
+              className="max-w-full h-auto rounded-lg shadow-md"
+            />
+            <p className="text-sm text-gray-600 text-center">
+              The ISBN (International Standard Book Number) can be found on the
+              back cover of the book or on the copyright page. It's typically a
+              10 or 13-digit number.
+            </p>
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
